@@ -102,6 +102,15 @@ public interface BurstNodeService extends AutoCloseable {
     Single<Transaction[]> getAccountTransactions(BurstAddress accountId); // TODO filtering
 
     /**
+     * Get the transactions of an account
+     * @param accountId The address of the account
+     * @param firstIndex The first index (optional for pagination)
+     * @param lastIndex The last index (optional for pagination)
+     * @return The account's assets, wrapped in a single
+     */
+    Single<AccountAsset[]> getAccountAssets(BurstAddress accountId, Integer firstIndex, Integer lastIndex);
+
+    /**
      * Get the unconfirmed transactions of an account
      * @param accountId The address of the account
      * @return The account's transactions, wrapped in a single

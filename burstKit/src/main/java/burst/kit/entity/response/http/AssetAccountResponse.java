@@ -9,8 +9,8 @@ public final class AssetAccountResponse extends BRSResponse {
     private final String unconfirmedQuantityQNT;
 
     public AssetAccountResponse(String errorDescription, Integer errorCode, Integer requestProcessingTime,
-    String account, String accountRS, String asset,
-    String quantityQNT, String unconfirmedQuantityQNT) {
+                                String account, String accountRS, String asset,
+                                String quantityQNT, String unconfirmedQuantityQNT) {
         super(errorDescription, errorCode, requestProcessingTime);
         this.account = account;
         this.accountRS = accountRS;

@@ -217,6 +217,11 @@ public class GrpcBurstNodeService implements BurstNodeService {
     }
 
     @Override
+    public Single<AccountAsset[]> getAccountAssets(BurstAddress accountId, Integer firstIndex, Integer lastIndex) {
+        return Single.error(new UnsupportedOperationException("GRPC Client does not support this API call yet")); // TODO;
+    }
+
+    @Override
     public Single<AssetBalance[]> getAssetBalances(BurstID assetId) {
         return assign(() -> brsGrpc.getAssetBalances(
                 BrsApi.GetAssetBalancesRequest.newBuilder()

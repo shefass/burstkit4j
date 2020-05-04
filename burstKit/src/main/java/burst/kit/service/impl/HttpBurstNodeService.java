@@ -155,8 +155,14 @@ public final class HttpBurstNodeService implements BurstNodeService {
     @Override
     public Single<AssetBalance[]> getAssetBalances(BurstID assetId) {
         return assign(burstAPIService.getAssetAccounts(BurstKitUtils.getEndpoint(), assetId.getID()))
-                .map(response -> Arrays.stream(response.getAccountsAsset()).map(AssetBalance::new)
+                .map(response -> Arrays.stream(response.getAssetAccounts()).map(AssetBalance::new)
                         .toArray(AssetBalance[]::new));
+    }
+
+    @Override
+    public Single<AccountAsset[]> getAccountAssets(BurstAddress accountId, Integer firstIndex, Integer lastIndex) {
+        return assign(burstAPIService.getAccountAssets(BurstKitUtils.getEndpoint(), accountId.getID(), firstIndex, lastIndex))
+                .map(response -> Arrays.stream(response.getAccountAssets()).map(AccountAsset::new).toArray(AccountAsset[]::new));
     }
 
     @Override
@@ -528,9 +534,12 @@ public final class HttpBurstNodeService implements BurstNodeService {
         @GET("{endpoint}?requestType=getAsset")
         Single<AssetResponse> getAsset(@Path("endpoint") String endpoint, @Query("asset") String assetId);
 
+        @GET("{endpoint}?requestType=getAccountAssets")
+        Single<AccountAssetsResponse> getAccountAssets(@Path("endpoint") String endpoint, @Query("account") String account, @Query("firstIndex") Integer firstIndex, @Query("lastIndex") Integer lastIndex);
+
         @GET("{endpoint}?requestType=getAssetAccounts")
-        Single<AccountsAssetResponse> getAssetAccounts(@Path("endpoint") String endpoint,
-                @Query("asset") String assetId);
+        Single<AssetAccountsResponse> getAssetAccounts(@Path("endpoint") String endpoint,
+                                                       @Query("asset") String assetId);
 
         @GET("{endpoint}?requestType=getTrades")
         Single<AssetTradesResponse> getAssetTrades(@Path("endpoint") String endpoint, @Query("asset") String assetId, @Query("account") String account, @Query("firstIndex") Integer firstIndex, @Query("lastIndex") Integer lastIndex);
